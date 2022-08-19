@@ -1,3 +1,4 @@
 @import url(../vendor/normalize.css);
 
+@import url(../blocks/game/game.css);
 @import url(../blocks/canvas/canvas.css);
