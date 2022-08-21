@@ -179,12 +179,23 @@ const restartGame = _ => {
   document.location.reload();
 }
 
+// обработчик управления мышью
+const mouseMoveHandler = evt => {
+  const relativeX = evt.clientX - canvas.offsetLeft;
+  if (relativeX > 0 && relativeX < canvas.width) {
+    paddleX = relativeX - PADDLE_WIDTH/2;
+  }
+}
+
 // навешиваем обработчики кнопок управления ракеткой
 document.addEventListener('keydown', keyDownHandler, false);
 document.addEventListener('keyup', keyUpHandler, false);
 
 // навешиваем обработчик на кнопку перезагрузки
 buttonReload.addEventListener('click', restartGame);
+
+// управление мышью
+document.addEventListener('mousemove', mouseMoveHandler, false);
 
 // заставляем мяч двигаться
 const interval = setInterval(draw, 10);
