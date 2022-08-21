@@ -47,6 +47,8 @@ for (let i = 0; i < BRICK_COLUMN_COUNT; i++) {
 
 // счет очков
 let score = 0;
+// счет жизней
+let lives = 3;
 
 // функция отрисовки мяча
 const drawBall = _ => {
@@ -109,9 +111,16 @@ const drawBricks = _ => {
 
 // функция отрисовки счета
 const drawScore = _ => {
-  ctx.font = "16px Arial";
-  ctx.fillStyle = "#0095dd";
+  ctx.font = '16px Arial';
+  ctx.fillStyle = '#0095dd';
   ctx.fillText('Score: ' + score, 8, 20);
+}
+
+// функция отрисовки количества жизней
+const drawLives = _ => {
+  ctx.font = '16px Arial';
+  ctx.fillStyle = '#0095dd';
+  ctx.fillText('Lives: ' + lives, canvas.width-65, 20);
 }
 
 // функцию обнаружения столкновений - сталкивается ли центр мяча с любым из кирпичей
@@ -154,8 +163,17 @@ const draw = _ => {
     if (x > paddleX && x < paddleX + PADDLE_WIDTH) {
       dy = -dy;
     } else {
-      messageLosing.classList.add('message-about-losing_visible');
-      clearInterval(interval);
+      lives--;
+      if (!lives) {
+        messageLosing.classList.add('message-about-losing_visible');
+        clearInterval(interval);
+      } else {
+        x = canvas.width/2;
+        y = canvas.height-30;
+        dx = 2;
+        dy = -2;
+        paddleX = (canvas.width-PADDLE_WIDTH)/2;
+      }
     }
   }
 
@@ -172,6 +190,8 @@ const draw = _ => {
   collisionDetection();
   // отрисовка счета
   drawScore();
+  // отрисовка жизней
+  drawLives();
 }
 
 // обработчик кнопки перезагрузки
