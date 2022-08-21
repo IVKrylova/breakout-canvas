@@ -181,6 +181,7 @@ const restartGame = _ => {
 
 // обработчик управления мышью
 const mouseMoveHandler = evt => {
+  // расстояниe между левым краем canvas и указателем мыши
   const relativeX = evt.clientX - canvas.offsetLeft;
   if (relativeX > 0 && relativeX < canvas.width) {
     paddleX = relativeX - PADDLE_WIDTH/2;
