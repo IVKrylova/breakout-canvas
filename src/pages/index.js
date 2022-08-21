@@ -11,7 +11,7 @@ const {
   BRICK_HEIGHT,
   BRICK_PADDING,
   BRICK_OFFSET_TOP,
-  BRICK_OFFSET_LEFT
+  BRICK_OFFSET_LEFT,
 } = require('../utils/constants');
 
 const messageLosing = document.querySelector('.message-about-losing');
@@ -163,8 +163,8 @@ const draw = _ => {
     if (x > paddleX && x < paddleX + PADDLE_WIDTH) {
       dy = -dy;
     } else {
-      lives--;
-      if (lives <= 0) {
+      if (lives > 0) lives--;
+      if (lives <= 0 && !messageWin.classList.contains('victory-message_visible')) {
         messageLosing.classList.add('message-about-losing_visible');
       } else {
         x = canvas.width/2;
@@ -193,7 +193,8 @@ const draw = _ => {
   drawLives();
 
   // воспроизводим анимацию
-  requestAnimationFrame(draw);
+  const moving = requestAnimationFrame(draw);
+  if (lives <= 0) cancelAnimationFrame(moving);
 }
 
 // обработчик кнопки перезагрузки
