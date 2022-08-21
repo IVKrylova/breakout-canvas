@@ -7,6 +7,7 @@ const {
   PADDLE_WIDTH,
 } = require('../utils/constants');
 
+const messageLosing = document.querySelector('.message-about-losing');
 const canvas = document.querySelector('.canvas');
 // переменная для хранения 2D визуализации контекста
 const ctx = canvas.getContext('2d');
@@ -70,9 +71,20 @@ const draw = _ => {
   x += dx;
   y += dy;
 
-  // отскоки мяча от стенки
+  // отскоки мяча от левой и правой стенки
   if (x + dx > canvas.width - BALL_RADIUS || x + dx < BALL_RADIUS) dx = -dx;
-  if (y + dy > canvas.height - BALL_RADIUS || y + dy < BALL_RADIUS) dy = -dy;
+  // отскоки мяча от верха и окончание игры
+  if (y + dy < BALL_RADIUS) {
+    dy = -dy;
+  } else if (y + dy > canvas.height - BALL_RADIUS) {
+    // проверка на касание мяча ракетки
+    if (x > paddleX && x < paddleX + PADDLE_WIDTH) {
+      dy = -dy;
+    } else {
+      messageLosing.classList.add('message-about-losing_visible');
+      clearTimeout(interval);
+    }
+  }
 
   // логика перемещения ракетки
   if (rightArrowPressed && paddleX < canvas.width - PADDLE_WIDTH) {
@@ -90,7 +102,7 @@ document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
 // заставляем мяч двигаться
-setTimeout(function move() {
+const interval = setTimeout(function move() {
   draw();
   setTimeout(move, 10);
 }, 10);
