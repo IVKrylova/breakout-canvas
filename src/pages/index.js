@@ -8,6 +8,7 @@ const {
 } = require('../utils/constants');
 
 const messageLosing = document.querySelector('.message-about-losing');
+const buttonReload = document.querySelector('.button-reload');
 const canvas = document.querySelector('.canvas');
 // переменная для хранения 2D визуализации контекста
 const ctx = canvas.getContext('2d');
@@ -82,7 +83,7 @@ const draw = _ => {
       dy = -dy;
     } else {
       messageLosing.classList.add('message-about-losing_visible');
-      clearTimeout(interval);
+      clearInterval(interval);
     }
   }
 
@@ -97,13 +98,17 @@ const draw = _ => {
   drawPaddle();
 }
 
+// обработчик кнопки перезагрузки
+const restartGame = _ => {
+  document.location.reload();
+}
+
 // навешиваем обработчики кнопок управления ракеткой
-document.addEventListener("keydown", keyDownHandler, false);
-document.addEventListener("keyup", keyUpHandler, false);
+document.addEventListener('keydown', keyDownHandler, false);
+document.addEventListener('keyup', keyUpHandler, false);
+
+// навешиваем обработчик на кнопку перезагрузки
+buttonReload.addEventListener('click', restartGame);
 
 // заставляем мяч двигаться
-const interval = setTimeout(function move() {
-  draw();
-  setTimeout(move, 10);
-}, 10);
-
+const interval = setInterval(draw, 10);

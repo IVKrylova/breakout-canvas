@@ -1,0 +1,16 @@
+.button-reload {
+  display: block;
+  max-width: 150px;
+  width: 100%;
+  align-self: center;
+  margin-top: 20px;
+  background-color: #fa8977;
+  box-sizing: border-box;
+  border: none;
+  padding: 5px 0;
+}
+
+.button-reload:hover {
+  cursor: pointer;
+  opacity: .8;
+}
