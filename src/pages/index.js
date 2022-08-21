@@ -16,7 +16,9 @@ const {
 
 const messageLosing = document.querySelector('.message-about-losing');
 const buttonReload = document.querySelector('.button-reload');
+const messageWin = document.querySelector('.victory-message');
 const canvas = document.querySelector('.canvas');
+
 // переменная для хранения 2D визуализации контекста
 const ctx = canvas.getContext('2d');
 
@@ -42,6 +44,9 @@ for (let i = 0; i < BRICK_COLUMN_COUNT; i++) {
     bricks[i][j] = { x: 0, y: 0, status: true };
   }
 }
+
+// счет очков
+let score = 0;
 
 // функция отрисовки мяча
 const drawBall = _ => {
@@ -102,6 +107,13 @@ const drawBricks = _ => {
   }
 }
 
+// функция отрисовки счета
+const drawScore = _ => {
+  ctx.font = "16px Arial";
+  ctx.fillStyle = "#0095dd";
+  ctx.fillText('Score: ' + score, 8, 20);
+}
+
 // функцию обнаружения столкновений - сталкивается ли центр мяча с любым из кирпичей
 const collisionDetection = _ => {
   for (let i = 0; i < BRICK_COLUMN_COUNT; i++) {
@@ -112,6 +124,9 @@ const collisionDetection = _ => {
         if (x > brick.x && x < brick.x + BRICK_WIDTH && y > brick.y && y < brick.y + BRICK_HEIGHT) {
           dy = -dy;
           brick.status = false;
+          score++;
+          if (score === BRICK_ROW_COUNT * BRICK_COLUMN_COUNT)
+            messageWin.classList.add('victory-message_visible');
         }
       }
     }
@@ -155,6 +170,8 @@ const draw = _ => {
   drawPaddle();
   // проверка на столкновения
   collisionDetection();
+  // отрисовка счета
+  drawScore();
 }
 
 // обработчик кнопки перезагрузки

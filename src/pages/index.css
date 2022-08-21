@@ -1,7 +1,9 @@
 @import url(../vendor/normalize.css);
 
 @import url(../blocks/game/game.css);
-@import url(../blocks/message-about-losing/message-about-losing.css);
-@import url(../blocks/message-about-losing/_message-about-losing_visible/message-about-losing_visible.css);
 @import url(../blocks/canvas/canvas.css);
+@import url(../blocks/message-about-losing/message-about-losing.css);
+@import url(../blocks/message-about-losing/_visible/message-about-losing_visible.css);
+@import url(../blocks/victory-message/victory-message.css);
+@import url(../blocks/victory-message/_visible/victory-message_visible.css);
 @import url(../blocks/button-reload/button-reload.css);
