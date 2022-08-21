@@ -1,3 +1,18 @@
 # Игра Breakout
+<img src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E" alt="javaScript"><br>
+Игра написана на ванильном JavaScript с применением инструмента Canvas.
 
-https://developer.mozilla.org/ru/docs/Games/Tutorials/2D_Breakout_game_pure_JavaScript
+## Функционал
+* доступно управление мышью
+* доступно управление стрелками клавиатуры
+* у игрока есть 3 жизни
+* реализован подсчет очков
+* есть возможность перезапустить игру
+* выводится сообщение о проигрыше или победе
+
+## Планы по доработке
+* адаптировать игру под разные разрешения экрана
+* переписать код на классы
+* изменить дизайн
+
+Поиграть можно [здесь](https://ivkrylova.github.io/breakout-canvas/).
