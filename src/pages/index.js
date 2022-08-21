@@ -5,6 +5,13 @@ const {
   BALL_RADIUS,
   PADDLE_HEIGHT,
   PADDLE_WIDTH,
+  BRICK_ROW_COUNT,
+  BRICK_COLUMN_COUNT,
+  BRICK_WIDTH,
+  BRICK_HEIGHT,
+  BRICK_PADDING,
+  BRICK_OFFSET_TOP,
+  BRICK_OFFSET_LEFT
 } = require('../utils/constants');
 
 const messageLosing = document.querySelector('.message-about-losing');
@@ -27,11 +34,20 @@ let paddleY = canvas.height-PADDLE_HEIGHT;
 let rightArrowPressed = false;
 let leftArrowPressed = false;
 
+// массив с кирпичами
+const bricks = [];
+for (let i = 0; i < BRICK_COLUMN_COUNT; i++) {
+  bricks[i] = [];
+  for (let j = 0; j < BRICK_ROW_COUNT; j++) {
+    bricks[i][j] = { x: 0, y: 0 };
+  }
+}
+
 // функция отрисовки мяча
 const drawBall = _ => {
   ctx.beginPath();
   ctx.arc(x, y, BALL_RADIUS, 0, Math.PI*2);
-  ctx.fillStyle = "#0095dd";
+  ctx.fillStyle = '#0095dd';
   ctx.fill();
   ctx.closePath();
 }
@@ -40,7 +56,7 @@ const drawBall = _ => {
 const drawPaddle = _ => {
   ctx.beginPath();
   ctx.rect(paddleX, paddleY, PADDLE_WIDTH, PADDLE_HEIGHT);
-  ctx.fillStyle = "#0095dd";
+  ctx.fillStyle = '#0095dd';
   ctx.fill();
   ctx.closePath();
 }
@@ -63,10 +79,33 @@ const keyUpHandler = evt => {
   }
 }
 
+// функция отрисовки кирпичей
+const drawBricks = _ => {
+  for (let i = 0; i < BRICK_COLUMN_COUNT; i++) {
+    for (let j = 0; j < BRICK_ROW_COUNT; j++) {
+      // положение каждого кирпича
+      const brickX = (i * (BRICK_WIDTH + BRICK_PADDING)) + BRICK_OFFSET_LEFT;
+      const brickY = (j * (BRICK_HEIGHT + BRICK_PADDING)) + BRICK_OFFSET_TOP;
+
+      // добавление координат кирпича в массив
+      bricks[i][j].x = brickX;
+      bricks[i][j].y = brickY;
+      // отрисовка кирпича
+      ctx.beginPath();
+      ctx.rect(brickX, brickY, BRICK_WIDTH, BRICK_HEIGHT);
+      ctx.fillStyle = '#0095dd';
+      ctx.fill();
+      ctx.closePath();
+    }
+  }
+}
+
 // функция движения мяча
 const draw = _ => {
   // очищение перед каждой отрисовкой
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  // отрисовка кирпичей
+  drawBricks();
   // отрисовка мяча
   drawBall();
   x += dx;
