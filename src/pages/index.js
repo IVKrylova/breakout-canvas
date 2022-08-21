@@ -164,9 +164,8 @@ const draw = _ => {
       dy = -dy;
     } else {
       lives--;
-      if (!lives) {
+      if (lives <= 0) {
         messageLosing.classList.add('message-about-losing_visible');
-        clearInterval(interval);
       } else {
         x = canvas.width/2;
         y = canvas.height-30;
@@ -192,6 +191,9 @@ const draw = _ => {
   drawScore();
   // отрисовка жизней
   drawLives();
+
+  // воспроизводим анимацию
+  requestAnimationFrame(draw);
 }
 
 // обработчик кнопки перезагрузки
@@ -218,5 +220,5 @@ buttonReload.addEventListener('click', restartGame);
 // управление мышью
 document.addEventListener('mousemove', mouseMoveHandler, false);
 
-// заставляем мяч двигаться
-const interval = setInterval(draw, 10);
+// отрисовка игры
+draw();
