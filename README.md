@@ -2,6 +2,9 @@
 <img src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E" alt="javaScript"><br>
 Игра написана на ванильном JavaScript с применением инструмента Canvas.
 
+## Демо
+Поиграть можно [здесь](https://ivkrylova.github.io/breakout-canvas/).
+
 ## Функционал
 * доступно управление мышью
 * доступно управление стрелками клавиатуры
@@ -14,5 +17,3 @@
 * адаптировать игру под разные разрешения экрана
 * переписать код на классы
 * изменить дизайн
-
-Поиграть можно [здесь](https://ivkrylova.github.io/breakout-canvas/).
